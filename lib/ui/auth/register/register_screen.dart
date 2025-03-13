@@ -85,19 +85,19 @@ class RegisterScreen extends StatelessWidget {
       onPressed: () {
         Get.toNamed(Routes.packagesScreen);
 
-        // if (_formKey.currentState?.validate() ?? false) {
-        //   Get.toNamed(Routes.packagesScreen);
-        // } else {
-        //   Get.snackbar(
-        //     'Validation Error',
-        //     'Please fill in all fields correctly',
-        //     snackPosition: SnackPosition.BOTTOM,
-        //     leftBarIndicatorColor: red,
-        //     backgroundColor: red.withOpacity(0.1),
-        //     borderRadius: 10,
-        //     margin: EdgeInsets.all(15),
-        //   );
-        // }
+      //   if (_formKey.currentState?.validate() ?? false) {
+      //     Get.toNamed(Routes.packagesScreen);
+      //   } else {
+      //     Get.snackbar(
+      //       'Validation Error',
+      //       'Please fill in all fields correctly',
+      //       snackPosition: SnackPosition.BOTTOM,
+      //       leftBarIndicatorColor: red,
+      //       backgroundColor: red.withOpacity(0.1),
+      //       borderRadius: 10,
+      //       margin: EdgeInsets.all(15),
+      //     );
+      //   }
       },
     );
   }

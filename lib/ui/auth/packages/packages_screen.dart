@@ -5,6 +5,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../../network/model/packages.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/custom_text_styles.dart';
+import '../../../wiget/Custome_button.dart';
 import '../../../wiget/appbar/commen_appbar.dart';
 import '../../../wiget/custome_text.dart';
 import 'packages_controller.dart';
@@ -26,7 +27,7 @@ class PackagesScreen extends StatelessWidget {
           Obx(() => Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.r),
-                  color: lightgrey,
+                  color: grey.withOpacity(0.1),
                 ),
                 child: ToggleButtons(
                   borderRadius: BorderRadius.circular(30.r),
@@ -112,9 +113,9 @@ class PackagesScreen extends StatelessWidget {
           Obx(() => getController.selectedPackageId.value != null
               ? Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: ElevatedButton(
+                  child: ElevatedButtonExample(
                     onPressed: () => getController.startPayment(),
-                    child: Text("Proceed to Payment"),
+                    text: "Proceed to Payment",
                   ),
                 )
               : SizedBox()),
