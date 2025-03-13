@@ -35,17 +35,17 @@ class PackagesController extends GetxController {
   void fetchPackages() async {
     try {
       final response = await dioClient.dio
-          .get('${Apis.PackagesbaseUrl}${Endpoints.packages}');
+          .get('${Apis.baseUrl}${Endpoints.packages}');
       if (response.statusCode == 200) {
-        PackagesResponse packagesResponse =
-            PackagesResponse.fromJson(response.data);
-        packages.value = packagesResponse.packages;
-        filterPackages(); // Filter on initial load
+        List<dynamic> jsonData = response.data;
+        packages.value = jsonData.map((e) => Package.fromJson(e)).toList();
+        filterPackages();
       } else {
         throw Exception('Error: ${response.statusCode}');
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());
+      print('==>' + e.toString());
     }
   }
 
@@ -90,7 +90,7 @@ class PackagesController extends GetxController {
       }
     }
   }
-                          
+
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     Get.snackbar('Success', 'Payment successful: ${response.paymentId}');
     print('Payment successful: ${response.paymentId}');

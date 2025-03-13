@@ -141,16 +141,10 @@ class PackagesScreen extends StatelessWidget {
             elevation: isSelected ? 4 : 0,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Stack(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Positioned(
-                    right: 8,
-                    top: 8,
-                    child: CustomTextWidget(
-                      text: "${pkg.subscriptionPlan}",
-                      textStyle: CustomTextStyles.textFontBold(size: 12.sp),
-                    ),
-                  ),
+                  // Package Name
                   ListTile(
                     title: CustomTextWidget(
                       text: pkg.name,
@@ -159,15 +153,20 @@ class PackagesScreen extends StatelessWidget {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Services List
                         ...pkg.servicesIncluded
                             .map((service) => CustomTextWidget(
                                 text: "• $service",
                                 textStyle: CustomTextStyles.textFontRegular(
                                     size: 12.sp)))
                             .toList(),
+                        SizedBox(height: 5.h),
+
+                        // Price
                         CustomTextWidget(
-                          text: "₹${pkg.price}",
-                          textStyle: CustomTextStyles.textFontBold(size: 14.sp),
+                          text: "₹${pkg.price.toString()}",
+                          textStyle: CustomTextStyles.textFontBold(
+                              size: 14.sp, color: primaryColor),
                         ),
                       ],
                     ),

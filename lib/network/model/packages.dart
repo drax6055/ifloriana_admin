@@ -6,6 +6,8 @@ class Package {
   final List<String> servicesIncluded;
   final String expirationDate;
   final String subscriptionPlan;
+  final String createdAt;
+  final String updatedAt;
 
   Package({
     required this.id,
@@ -15,17 +17,21 @@ class Package {
     required this.servicesIncluded,
     required this.expirationDate,
     required this.subscriptionPlan,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory Package.fromJson(Map<String, dynamic> json) {
     return Package(
       id: json['id'],
       name: json['name'],
-      price: json['price'].toDouble(),
+      price: double.parse(json['price']),
       description: json['description'],
       servicesIncluded: List<String>.from(json['services_included']),
       expirationDate: json['expiration_date'],
       subscriptionPlan: json['subscription_plan'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
     );
   }
 
@@ -33,11 +39,13 @@ class Package {
     return {
       'id': id,
       'name': name,
-      'price': price,
+      'price': price.toString(),
       'description': description,
       'services_included': servicesIncluded,
       'expiration_date': expirationDate,
       'subscription_plan': subscriptionPlan,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
     };
   }
 }
@@ -49,9 +57,7 @@ class PackagesResponse {
 
   factory PackagesResponse.fromJson(Map<String, dynamic> json) {
     return PackagesResponse(
-      packages: (json['packages'] as List)
-          .map((package) => Package.fromJson(package))
-          .toList(),
+      packages: (json as List).map((package) => Package.fromJson(package)).toList(),
     );
   }
 
