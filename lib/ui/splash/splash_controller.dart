@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import '../../commen_items/sharePrafrence.dart';
 import '../../route/app_route.dart';
+import '../../wiget/custome_snackbar.dart';
 
 class SplashController extends GetxController {
   final SharedPreferenceManager _prefs = SharedPreferenceManager();
@@ -25,7 +26,7 @@ class SplashController extends GetxController {
         }
       });
     } catch (e) {
-      Get.snackbar('Error', '$e');
+      CustomSnackbar.showError('Error', '$e');
     }
   }
 }

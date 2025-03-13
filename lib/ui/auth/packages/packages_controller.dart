@@ -3,6 +3,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../../main.dart';
 import '../../../network/model/packages.dart';
 import '../../../network/network_const.dart';
+import '../../../wiget/custome_snackbar.dart';
 
 class PackagesController extends GetxController {
   var packages = <Package>[].obs;
@@ -23,7 +24,7 @@ class PackagesController extends GetxController {
 
   @override
   void onClose() {
-    _razorpay.clear(); // Dispose of the Razorpay instance
+    _razorpay.clear(); 
     super.onClose();
   }
 
@@ -34,8 +35,8 @@ class PackagesController extends GetxController {
 
   void fetchPackages() async {
     try {
-      final response = await dioClient.dio
-          .get('${Apis.baseUrl}${Endpoints.packages}');
+      final response =
+          await dioClient.dio.get('${Apis.baseUrl}${Endpoints.packages}');
       if (response.statusCode == 200) {
         List<dynamic> jsonData = response.data;
         packages.value = jsonData.map((e) => Package.fromJson(e)).toList();
@@ -44,8 +45,7 @@ class PackagesController extends GetxController {
         throw Exception('Error: ${response.statusCode}');
       }
     } catch (e) {
-      Get.snackbar('Error', e.toString());
-      print('==>' + e.toString());
+       CustomSnackbar.showError('Error', e.toString());
     }
   }
 
@@ -70,12 +70,12 @@ class PackagesController extends GetxController {
         packages.firstWhereOrNull((pkg) => pkg.id == selectedPackageId.value);
     if (selectedPackage != null) {
       var options = {
-        'key': 'rzp_live_0c4P2L2TUgxP8X', // Ensure this is correct
-        'amount': (selectedPackage.price * 100).toInt(), // Convert ₹ to paise
+        'key': 'rzp_live_0c4P2L2TUgxP8X', 
+        'amount': (selectedPackage.price * 100).toInt(), 
         'name': selectedPackage.name,
         'description': selectedPackage.description,
         'prefill': {
-          'contact': '9974011196', // Must be 10-digit, no country code
+          'contact': '9974011196', 
           'email': 'sonidhairya1212@gmail.com'
         },
         'external': {
@@ -85,24 +85,26 @@ class PackagesController extends GetxController {
       try {
         _razorpay.open(options);
       } catch (e) {
-        Get.snackbar('Error', 'Failed to open Razorpay: $e');
+        CustomSnackbar.showError('Error', 'Failed to open Razorpay: $e');
         print('==> Failed to open Razorpay: $e');
       }
     }
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    Get.snackbar('Success', 'Payment successful: ${response.paymentId}');
-    print('Payment successful: ${response.paymentId}');
+    CustomSnackbar.showSuccess(
+        'Success', 'Payment successful: ${response.paymentId}');
+    print('Success --> Payment successful: ${response.paymentId}');
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    Get.snackbar('Error', 'Payment failed: ${response.message}');
-    print('==>Payment failed: ${response.code} - ${response.message}');
+    CustomSnackbar.showError('Error', 'Payment failed: ${response.message}');
+    print('Error --> Payment failed: ${response.message}');
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
-    Get.snackbar('Info', 'External Wallet selected: ${response.walletName}');
-    print('External Wallet selected: ${response.walletName}');
+    CustomSnackbar.showSuccess(
+        'Info', 'External Wallet selected: ${response.walletName}');
+    print('Info : External Wallet selected: ${response.walletName}');
   }
 }

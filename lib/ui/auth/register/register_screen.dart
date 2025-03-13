@@ -8,6 +8,7 @@ import '../../../utils/custom_text_styles.dart';
 import '../../../utils/validation.dart';
 import '../../../wiget/Custome_textfield.dart';
 import '../../../wiget/Custome_button.dart';
+import '../../../wiget/custome_snackbar.dart';
 import '../../../wiget/custome_text.dart';
 import 'register_controller.dart';
 
@@ -85,19 +86,12 @@ class RegisterScreen extends StatelessWidget {
       onPressed: () {
         Get.toNamed(Routes.packagesScreen);
 
-      //   if (_formKey.currentState?.validate() ?? false) {
-      //     Get.toNamed(Routes.packagesScreen);
-      //   } else {
-      //     Get.snackbar(
-      //       'Validation Error',
-      //       'Please fill in all fields correctly',
-      //       snackPosition: SnackPosition.BOTTOM,
-      //       leftBarIndicatorColor: red,
-      //       backgroundColor: red.withOpacity(0.1),
-      //       borderRadius: 10,
-      //       margin: EdgeInsets.all(15),
-      //     );
-      //   }
+        // if (_formKey.currentState?.validate() ?? false) {
+        //   Get.toNamed(Routes.packagesScreen);
+        // } else {
+        //   CustomSnackbar.showError(
+        //       'Validation Error', 'Please fill in all fields correctly');
+        // }
       },
     );
   }

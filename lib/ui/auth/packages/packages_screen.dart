@@ -100,7 +100,7 @@ class PackagesScreen extends StatelessWidget {
               var filteredPackages = getController.filteredPackages;
               if (filteredPackages.isEmpty) {
                 return Center(child: CircularProgressIndicator());
-              }
+              } 
               return ListView.builder(
                 itemCount: filteredPackages.length,
                 itemBuilder: (context, index) {

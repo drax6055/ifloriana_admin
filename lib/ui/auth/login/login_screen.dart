@@ -8,6 +8,7 @@ import '../../../utils/custom_text_styles.dart';
 import '../../../utils/validation.dart';
 import '../../../wiget/Custome_textfield.dart';
 import '../../../wiget/Custome_button.dart';
+import '../../../wiget/custome_snackbar.dart';
 import '../../../wiget/custome_text.dart';
 import 'login_controller.dart';
 
@@ -71,15 +72,8 @@ class LoginScreen extends StatelessWidget {
         if (_formKey.currentState?.validate() ?? false) {
           getController.onLoginPress();
         } else {
-          Get.snackbar(
-            'Validation Error',
-            'Please fill in all fields correctly',
-            snackPosition: SnackPosition.BOTTOM,
-            leftBarIndicatorColor: red,
-            backgroundColor: red.withOpacity(0.1),
-            borderRadius: 10,
-            margin: EdgeInsets.all(15),
-          );
+           CustomSnackbar.showError('Validation Error' , 'Please fill in all fields correctly');
+          
         }
       },
     );

@@ -6,6 +6,7 @@ import '../../../main.dart';
 import '../../../network/model/login_model.dart';
 import '../../../network/network_const.dart';
 import '../../../route/app_route.dart';
+import '../../../wiget/custome_snackbar.dart';
 
 class LoginController extends GetxController {
   final SharedPreferenceManager _prefs = SharedPreferenceManager();
@@ -19,10 +20,9 @@ class LoginController extends GetxController {
   }
 
   Future onLoginPress() async {
-
     Map<String, dynamic> loginData = {
-      'email': emailController.text, 
-      'password': passController.text, 
+      'email': emailController.text,
+      'password': passController.text,
     };
 
     try {
@@ -36,15 +36,7 @@ class LoginController extends GetxController {
       await _prefs.saveAccessToken(loginResponse.token!);
       Get.offNamed(Routes.drawerScreen);
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        "Invalid username or password",
-        snackPosition: SnackPosition.BOTTOM,
-        leftBarIndicatorColor: red,
-        backgroundColor: red.withOpacity(0.1),
-        borderRadius: 10,
-        margin: EdgeInsets.all(15),
-      );
+      CustomSnackbar.showError('Error', 'Invalid username or password');
     }
   }
 }
