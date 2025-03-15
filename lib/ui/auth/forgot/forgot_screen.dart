@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_template/ui/auth/forgot/forgot_controller.dart';
 import 'package:flutter_template/utils/app_images.dart';
 import 'package:flutter_template/utils/colors.dart';
 import 'package:get/get.dart';
@@ -10,12 +11,11 @@ import '../../../wiget/Custome_textfield.dart';
 import '../../../wiget/Custome_button.dart';
 import '../../../wiget/custome_snackbar.dart';
 import '../../../wiget/custome_text.dart';
-import 'login_controller.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class ForgotScreen extends StatelessWidget {
+  ForgotScreen({super.key});
 
-  final LoginController getController = Get.put(LoginController());
+  final ForgotController getController = Get.put(ForgotController());
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Login_screen(),
+              forgot_screen(),
             ],
           ),
         ),
@@ -43,32 +43,12 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget InputTxtfield_Pass() {
-    return Obx(() => CustomTextFormField(
-          controller: getController.passController,
-          labelText: 'Password',
-          obscureText: !getController.showPass.value,
-          suffixIcon: IconButton(
-            onPressed: () {
-              getController.toggleShowPass();
-            },
-            icon: Icon(
-              getController.showPass.value
-                  ? Icons.visibility
-                  : Icons.visibility_off,
-              color: grey,
-            ),
-          ),
-          validator: (value) => Validation.validatePassword(value),
-        ));
-  }
-
-  Widget Btn_Login() {
+  Widget Btn_Forgot() {
     return ElevatedButtonExample(
-      text: "Login",
+      text: "Continue",
       onPressed: () {
         if (_formKey.currentState?.validate() ?? false) {
-          getController.onLoginPress();
+          //add code here
         } else {
           CustomSnackbar.showError(
               'Validation Error', 'Please fill in all fields correctly');
@@ -77,7 +57,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget login_screen_header() {
+  Widget Forgot_screen_header() {
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -116,58 +96,40 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget login_screen_body() {
+  Widget forgot_screen_body() {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           CustomTextWidget(
-            text: 'Welcome Back!',
+            text: 'Forgot Password',
             textStyle: CustomTextStyles.textFontSemiBold(size: 16.sp),
           ),
           SizedBox(height: 3.h),
-          CustomTextWidget(
-            text: 'You Have Been Missed For Long Time',
-            textStyle:
-                CustomTextStyles.textFontSemiBold(size: 12.sp, color: grey),
+          SizedBox(
+            width: 180.w,
+            child: CustomTextWidget(
+              textAlign: TextAlign.center,
+              text: 'Please enter your email to reset your password.',
+              textStyle:
+                  CustomTextStyles.textFontSemiBold(size: 12.sp, color: grey),
+            ),
           ),
           SizedBox(height: 20.h),
           InputTxtfield_Email(),
-          SizedBox(height: 16.h),
-          InputTxtfield_Pass(),
-          SizedBox(height: 16.h),
-          InkWell(
-              onTap: () {
-                Get.toNamed(Routes.forgotScreen);
-              },
-              child: Align(
-                  alignment: Alignment.topRight,
-                  child: CustomTextWidget(
-                      text: "Forgot your password?",
-                      textStyle: CustomTextStyles.textFontBold(
-                          size: 14.sp, color: primaryColor)))),
           SizedBox(height: 30.h),
-          Btn_Login(),
-          SizedBox(height: 16.h),
-          InkWell(
-              onTap: () => Get.toNamed(Routes.registerScreen),
-              child: Align(
-                  alignment: Alignment.center,
-                  child: CustomTextWidget(
-                      text: "Create new account",
-                      textStyle: CustomTextStyles.textFontBold(
-                          size: 14.sp, color: primaryColor)))),
+          Btn_Forgot(),
         ],
       ),
     );
   }
 
-  Widget Login_screen() {
+  Widget forgot_screen() {
     return Column(
       children: [
-        login_screen_header(),
+        Forgot_screen_header(),
         SizedBox(height: 45.h),
-        login_screen_body(),
+        forgot_screen_body(),
       ],
     );
   }

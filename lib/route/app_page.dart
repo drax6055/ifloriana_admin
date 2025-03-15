@@ -3,6 +3,8 @@ import 'package:flutter_template/ui/auth/packages/packages_screen.dart';
 import 'package:flutter_template/ui/auth/register/register_screen.dart';
 import 'package:flutter_template/ui/drawer/drawer_screen.dart';
 import 'package:get/get.dart';
+import '../ui/auth/forgot/forgot_screen.dart';
+import '../ui/drawer/dashboard/dashboard_screen.dart';
 import '../ui/splash/splash_screen.dart';
 import 'app_route.dart';
 
@@ -21,13 +23,21 @@ class AppPages {
         name: Routes.drawerScreen,
         page: () => DrawerScreen(),
         transition: Transition.rightToLeft),
-        GetPage(
+    GetPage(
         name: Routes.registerScreen,
         page: () => RegisterScreen(),
         transition: Transition.rightToLeft),
-        GetPage(
+    GetPage(
         name: Routes.packagesScreen,
         page: () => PackagesScreen(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.dashboardScreen,
+        page: () => DashboardScreen(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.forgotScreen,
+        page: () => ForgotScreen(),
         transition: Transition.rightToLeft),
   ];
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import '../../../network/model/packages.dart';
+import '../../../network/model/packages_model.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/custom_text_styles.dart';
 import '../../../wiget/Custome_button.dart';

@@ -12,8 +12,13 @@ class DashboardScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        body: Center(
-          child: Text('Dashboard Screen'),
+        body: Column(
+          children: [
+            // //performance
+            SingleChildScrollView(
+
+            )
+          ],
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../../main.dart';
-import '../../../network/model/packages.dart';
+import '../../../network/model/packages_model.dart';
 import '../../../network/network_const.dart';
 import '../../../wiget/custome_snackbar.dart';
 
