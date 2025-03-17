@@ -17,7 +17,7 @@ class RegisterScreen extends StatelessWidget {
 
   final RegisterController getController = Get.put(RegisterController());
   final _formKey = GlobalKey<FormState>();
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +84,14 @@ class RegisterScreen extends StatelessWidget {
     return ElevatedButtonExample(
       text: "Next",
       onPressed: () {
-        Get.toNamed(Routes.packagesScreen);
+        var register_data = {
+          'Owner_Name': getController.ownerNameController.text,    
+          'Phone': getController.phoneController.text,
+          'Address': getController.addressController.text,
+          'Salon_Name': getController.salonNameController.text,
+          'Email': getController.emailController.text,
+        };
+        Get.toNamed(Routes.packagesScreen,arguments: register_data);
 
         // if (_formKey.currentState?.validate() ?? false) {
         //   Get.toNamed(Routes.packagesScreen);

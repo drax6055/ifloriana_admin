@@ -11,6 +11,7 @@ class PackagesController extends GetxController {
   var selectedIndex = 0.obs; // 0 = Monthly (default), 1 = Yearly
   var filteredPackages = <Package>[].obs;
   late Razorpay _razorpay;
+  final Map<String, dynamic> registerData = Get.arguments;
 
   @override
   void onInit() {
@@ -24,7 +25,7 @@ class PackagesController extends GetxController {
 
   @override
   void onClose() {
-    _razorpay.clear(); 
+    _razorpay.clear();
     super.onClose();
   }
 
@@ -45,7 +46,7 @@ class PackagesController extends GetxController {
         throw Exception('Error: ${response.statusCode}');
       }
     } catch (e) {
-       CustomSnackbar.showError('Error', e.toString());
+      CustomSnackbar.showError('Error', e.toString());
     }
   }
 
@@ -70,12 +71,12 @@ class PackagesController extends GetxController {
         packages.firstWhereOrNull((pkg) => pkg.id == selectedPackageId.value);
     if (selectedPackage != null) {
       var options = {
-        'key': 'rzp_live_0c4P2L2TUgxP8X', 
-        'amount': (selectedPackage.price * 100).toInt(), 
+        'key': 'rzp_live_j4mU81CM2TzOFU',
+        'amount': (selectedPackage.price * 100).toInt(),
         'name': selectedPackage.name,
         'description': selectedPackage.description,
         'prefill': {
-          'contact': '9974011196', 
+          'contact': '9974011196',
           'email': 'sonidhairya1212@gmail.com'
         },
         'external': {
