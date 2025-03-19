@@ -47,13 +47,12 @@ class ForgotScreen extends StatelessWidget {
     return ElevatedButtonExample(
       text: "Continue",
       onPressed: () {
-        Get.toNamed(Routes.dashboardScreen);
-        // if (_formKey.currentState?.validate() ?? false) {
-        //   //add code here
-        // } else {
-        //   CustomSnackbar.showError(
-        //       'Validation Error', 'Please fill in all fields correctly');
-        // }
+        if (_formKey.currentState?.validate() ?? false) {
+          getController.onForgotPress();
+        } else {
+          CustomSnackbar.showError(
+              'Validation Error', 'Please fill in all fields correctly');
+        }
       },
     );
   }

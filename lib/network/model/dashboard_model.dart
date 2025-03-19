@@ -65,6 +65,7 @@ class Performance {
   int? newCustomersNum;
   int? totalOrdersNum;
   int? totalProductSalesNum;
+  int? totalValue;
 
   Performance(
       {this.name,
@@ -73,7 +74,8 @@ class Performance {
       this.totalSalesCommissionsAmt,
       this.newCustomersNum,
       this.totalOrdersNum,
-      this.totalProductSalesNum});
+      this.totalProductSalesNum,
+      this.totalValue});
 
   Performance.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -83,6 +85,7 @@ class Performance {
     newCustomersNum = json['new_customers_num'];
     totalOrdersNum = json['total_orders_num'];
     totalProductSalesNum = json['total_product_sales_num'];
+    totalValue = json['total_value'];
   }
 
   Map<String, dynamic> toJson() {
@@ -94,6 +97,7 @@ class Performance {
     data['new_customers_num'] = this.newCustomersNum;
     data['total_orders_num'] = this.totalOrdersNum;
     data['total_product_sales_num'] = this.totalProductSalesNum;
+    data['total_value'] = this.totalValue;
     return data;
   }
 }
@@ -104,9 +108,15 @@ class UpcomingAppointments {
   String? time;
   String? location;
   String? status;
+  int? totalAppointments;
 
   UpcomingAppointments(
-      {this.name, this.date, this.time, this.location, this.status});
+      {this.name,
+      this.date,
+      this.time,
+      this.location,
+      this.status,
+      this.totalAppointments});
 
   UpcomingAppointments.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -114,6 +124,7 @@ class UpcomingAppointments {
     time = json['time'];
     location = json['location'];
     status = json['status'];
+    totalAppointments = json['total_appointments'];
   }
 
   Map<String, dynamic> toJson() {
@@ -123,6 +134,7 @@ class UpcomingAppointments {
     data['time'] = this.time;
     data['location'] = this.location;
     data['status'] = this.status;
+    data['total_appointments'] = this.totalAppointments;
     return data;
   }
 }
@@ -131,13 +143,25 @@ class AppointmentsRevenueGraph {
   String? date;
   int? appointments;
   int? revenue;
+  String? name;
+  int? totalAppointments;
+  int? totalRevenue;
 
-  AppointmentsRevenueGraph({this.date, this.appointments, this.revenue});
+  AppointmentsRevenueGraph(
+      {this.date,
+      this.appointments,
+      this.revenue,
+      this.name,
+      this.totalAppointments,
+      this.totalRevenue});
 
   AppointmentsRevenueGraph.fromJson(Map<String, dynamic> json) {
     date = json['date'];
     appointments = json['appointments'];
     revenue = json['revenue'];
+    name = json['name'];
+    totalAppointments = json['total_appointments'];
+    totalRevenue = json['total_revenue'];
   }
 
   Map<String, dynamic> toJson() {
@@ -145,6 +169,9 @@ class AppointmentsRevenueGraph {
     data['date'] = this.date;
     data['appointments'] = this.appointments;
     data['revenue'] = this.revenue;
+    data['name'] = this.name;
+    data['total_appointments'] = this.totalAppointments;
+    data['total_revenue'] = this.totalRevenue;
     return data;
   }
 }
@@ -153,13 +180,25 @@ class TopServices {
   String? service;
   int? totalCount;
   int? totalAmount;
+  String? name;
+  int? totalServicesCount;
+  int? totalServicesAmount;
 
-  TopServices({this.service, this.totalCount, this.totalAmount});
+  TopServices(
+      {this.service,
+      this.totalCount,
+      this.totalAmount,
+      this.name,
+      this.totalServicesCount,
+      this.totalServicesAmount});
 
   TopServices.fromJson(Map<String, dynamic> json) {
     service = json['service'];
     totalCount = json['total_count'];
     totalAmount = json['total_amount'];
+    name = json['name'];
+    totalServicesCount = json['total_services_count'];
+    totalServicesAmount = json['total_services_amount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -167,6 +206,9 @@ class TopServices {
     data['service'] = this.service;
     data['total_count'] = this.totalCount;
     data['total_amount'] = this.totalAmount;
+    data['name'] = this.name;
+    data['total_services_count'] = this.totalServicesCount;
+    data['total_services_amount'] = this.totalServicesAmount;
     return data;
   }
 }

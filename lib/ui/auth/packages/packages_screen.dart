@@ -22,8 +22,6 @@ class PackagesScreen extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(height: 5.h),
-
-          // Toggle Button for Monthly / Yearly
           Obx(() => Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.r),
@@ -37,8 +35,8 @@ class PackagesScreen extends StatelessWidget {
                   selectedColor: white,
                   constraints: BoxConstraints(minHeight: 40.h, minWidth: 100.w),
                   isSelected: [
-                    getController.selectedIndex.value == 0, // Monthly
-                    getController.selectedIndex.value == 1 // Yearly
+                    getController.selectedIndex.value == 0,
+                    getController.selectedIndex.value == 1
                   ],
                   onPressed: (int index) {
                     getController.toggleGender(index);
@@ -91,31 +89,26 @@ class PackagesScreen extends StatelessWidget {
                   ],
                 ),
               )),
-
           SizedBox(height: 5.h),
-
-          // Packages List with Filter
           Expanded(
             child: Obx(() {
-              var filteredPackages = getController.filteredPackages;
-              if (filteredPackages.isEmpty) {
+              if (getController.filteredPackages.isEmpty) {
                 return Center(child: CircularProgressIndicator());
-              } 
+              }
               return ListView.builder(
-                itemCount: filteredPackages.length,
+                itemCount: getController.filteredPackages.length,
                 itemBuilder: (context, index) {
-                  return _buildRadioCard(filteredPackages[index]);
+                  return _buildRadioCard(getController.filteredPackages[index]);
                 },
               );
             }),
           ),
-
           Obx(() => getController.selectedPackageId.value != null
               ? Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: ElevatedButtonExample(
                     onPressed: () => getController.startPayment(),
-                    text: "Proceed to Payment",
+                    text: "Process to Payment",
                   ),
                 )
               : SizedBox()),
@@ -145,7 +138,6 @@ class PackagesScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Package Name
                   ListTile(
                     title: CustomTextWidget(
                       text: pkg.name,
@@ -154,7 +146,6 @@ class PackagesScreen extends StatelessWidget {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Services List
                         ...pkg.servicesIncluded
                             .map((service) => CustomTextWidget(
                                 text: "• $service",
@@ -162,8 +153,6 @@ class PackagesScreen extends StatelessWidget {
                                     size: 12.sp)))
                             .toList(),
                         SizedBox(height: 5.h),
-
-                        // Price
                         CustomTextWidget(
                           text: "₹${pkg.price.toString()}",
                           textStyle: CustomTextStyles.textFontBold(

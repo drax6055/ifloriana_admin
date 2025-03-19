@@ -28,7 +28,7 @@ class DrawerScreen extends StatelessWidget {
                   Icons.notifications,
                   size: 24.sp,
                 ))
-          ],
+          ],  
         ),
         body: Obx(() {
            switch (getController.selectedPage.value) {
@@ -94,7 +94,6 @@ class DrawerScreen extends StatelessWidget {
                     textStyle: CustomTextStyles.textFontMedium(size: 15.sp)),
                 onTap: () async {
                   await getController.onLogoutPress();
-                  Navigator.pop(context);
                 },
               ),
             ],

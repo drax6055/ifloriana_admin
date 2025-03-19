@@ -17,7 +17,7 @@ class RegisterScreen extends StatelessWidget {
 
   final RegisterController getController = Get.put(RegisterController());
   final _formKey = GlobalKey<FormState>();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,20 +85,25 @@ class RegisterScreen extends StatelessWidget {
       text: "Next",
       onPressed: () {
         var register_data = {
-          'Owner_Name': getController.ownerNameController.text,    
+          'Owner_Name': getController.ownerNameController.text,
           'Phone': getController.phoneController.text,
           'Address': getController.addressController.text,
           'Salon_Name': getController.salonNameController.text,
           'Email': getController.emailController.text,
         };
-        Get.toNamed(Routes.packagesScreen,arguments: register_data);
-
-        // if (_formKey.currentState?.validate() ?? false) {
-        //   Get.toNamed(Routes.packagesScreen);
-        // } else {
-        //   CustomSnackbar.showError(
-        //       'Validation Error', 'Please fill in all fields correctly');
-        // }
+        
+        if (_formKey.currentState?.validate() ?? false) {
+          getController.registeredData = register_data as RxMap; 
+          getController.ownerNameController.clear();
+        getController.phoneController.clear();
+        getController.addressController.clear();
+        getController.salonNameController.clear();
+        getController.emailController.clear();
+          Get.toNamed(Routes.packagesScreen,arguments: register_data);
+        } else {
+          CustomSnackbar.showError(
+              'Validation Error', 'Please fill in all fields correctly');
+        }
       },
     );
   }

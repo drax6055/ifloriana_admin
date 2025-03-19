@@ -1,7 +1,11 @@
+import 'package:flutter/widgets.dart';
+import 'package:flutter_template/route/app_route.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../../../main.dart';
 import '../../../network/model/packages_model.dart';
+import '../../../network/model/signup_model.dart';
 import '../../../network/network_const.dart';
 import '../../../wiget/custome_snackbar.dart';
 
@@ -71,13 +75,13 @@ class PackagesController extends GetxController {
         packages.firstWhereOrNull((pkg) => pkg.id == selectedPackageId.value);
     if (selectedPackage != null) {
       var options = {
-        'key': 'rzp_live_j4mU81CM2TzOFU',
+        'key': dotenv.env['RAZORPAY_KEY_ID'],
         'amount': (selectedPackage.price * 100).toInt(),
         'name': selectedPackage.name,
         'description': selectedPackage.description,
         'prefill': {
-          'contact': '9974011196',
-          'email': 'sonidhairya1212@gmail.com'
+          'contact': registerData['Phone'],
+          'email': registerData['Email']
         },
         'external': {
           'wallets': ['paytm']
@@ -92,10 +96,27 @@ class PackagesController extends GetxController {
     }
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    CustomSnackbar.showSuccess(
-        'Success', 'Payment successful: ${response.paymentId}');
-    print('Success --> Payment successful: ${response.paymentId}');
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    try {
+      String paymentId = response.paymentId ?? '';
+
+      var selectedPackage =
+          packages.firstWhereOrNull((pkg) => pkg.id == selectedPackageId.value);
+
+      if (selectedPackage != null) {
+        double amount = selectedPackage.price * 100;
+
+        await dioClient.capturePayment(paymentId, amount);
+
+        CustomSnackbar.showSuccess('Success', 'Payment captured successfully');
+        print('Success --> Payment captured successfully: $paymentId');
+        onRegisterData();
+        Get.offNamed(Routes.loginScreen);
+      }
+    } catch (e) {
+      CustomSnackbar.showError('Error', 'Payment capture failed: $e');
+      print('Error --> Payment capture failed: $e');
+    }
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -106,6 +127,28 @@ class PackagesController extends GetxController {
   void _handleExternalWallet(ExternalWalletResponse response) {
     CustomSnackbar.showSuccess(
         'Info', 'External Wallet selected: ${response.walletName}');
-    print('Info : External Wallet selected: ${response.walletName}');
+    print('Info: External Wallet selected: ${response.walletName}');
+  }
+
+  Future onRegisterData() async {
+    Map<String, dynamic> register_post_details = {
+      'full_name': registerData['Owner_Name'].toString(),
+      'salon_name': registerData['Salon_Name'].toString(),
+      'phone_number': registerData['Phone'].toString(),
+      'email': registerData['Email'].toString(),
+      'address': registerData['Address'].toString(),
+      'package_id': selectedPackageId.value,
+    };
+
+    try {
+      Sigm_up_model registerResponse = await dioClient.postData<Sigm_up_model>(
+        '${Apis.baseUrl}${Endpoints.signup}',
+        register_post_details,
+        (json) => Sigm_up_model.fromJson(json),
+      );
+      Get.offNamed(Routes.loginScreen);
+    } catch (e) {
+      CustomSnackbar.showError("==>", e.toString());
+    }
   }
 }

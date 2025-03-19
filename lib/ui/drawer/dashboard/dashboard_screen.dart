@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/wiget/appbar/commen_appbar.dart';
 import 'package:get/get.dart';
 
 import 'dashboard_controller.dart';
@@ -12,14 +13,7 @@ class DashboardScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            // //performance
-            SingleChildScrollView(
-
-            )
-          ],
-        ),
+        appBar: CustomAppBar(title: "title"),
       ),
     );
   }

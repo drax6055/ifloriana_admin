@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_template/utils/colors.dart';
 import 'package:get/get.dart';
 import '../../../commen_items/sharePrafrence.dart';
 import '../../../main.dart';

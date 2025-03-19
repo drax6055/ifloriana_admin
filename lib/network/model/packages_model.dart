@@ -22,18 +22,21 @@ class Package {
   });
 
   factory Package.fromJson(Map<String, dynamic> json) {
-    return Package(
-      id: json['id'],
-      name: json['name'],
-      price: double.parse(json['price']),
-      description: json['description'],
-      servicesIncluded: List<String>.from(json['services_included']),
-      expirationDate: json['expiration_date'],
-      subscriptionPlan: json['subscription_plan'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
-    );
-  }
+  return Package(
+    id: json['id'],
+    name: json['name'],
+    price: (json['price'] is String) 
+        ? double.parse(json['price']) 
+        : json['price'].toDouble(),  // Fix for mixed types
+    description: json['description'],
+    servicesIncluded: List<String>.from(json['services_included']),
+    expirationDate: json['expiration_date'],
+    subscriptionPlan: json['subscription_plan'],
+    createdAt: json['created_at'],
+    updatedAt: json['updated_at'],
+  );
+}
+
 
   Map<String, dynamic> toJson() {
     return {

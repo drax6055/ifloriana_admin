@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_template/route/app_page.dart';
@@ -12,8 +13,11 @@ import 'network/dio.dart';
 FlutterSecureStorage? storage;
 final dioClient = DioClient();
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+    
+  await dotenv.load(fileName: "assets/.env");
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: primaryColor,
     statusBarColor: primaryColor,
