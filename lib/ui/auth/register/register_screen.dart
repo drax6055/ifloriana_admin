@@ -86,20 +86,14 @@ class RegisterScreen extends StatelessWidget {
       onPressed: () {
         var register_data = {
           'Owner_Name': getController.ownerNameController.text,
+          'Salon_Name': getController.salonNameController.text,
           'Phone': getController.phoneController.text,
           'Address': getController.addressController.text,
-          'Salon_Name': getController.salonNameController.text,
           'Email': getController.emailController.text,
         };
-        
+
         if (_formKey.currentState?.validate() ?? false) {
-          getController.registeredData = register_data as RxMap; 
-          getController.ownerNameController.clear();
-        getController.phoneController.clear();
-        getController.addressController.clear();
-        getController.salonNameController.clear();
-        getController.emailController.clear();
-          Get.toNamed(Routes.packagesScreen,arguments: register_data);
+          Get.toNamed(Routes.packagesScreen, arguments: register_data);
         } else {
           CustomSnackbar.showError(
               'Validation Error', 'Please fill in all fields correctly');

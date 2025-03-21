@@ -9,21 +9,21 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() {
-    fetchDashboardDetails();
+    // fetchDashboardDetails();
     super.onInit();
   }
 
-  void fetchDashboardDetails() async {
-    try {
-      final response =
-          await dioClient.dio.get('${Apis.dashboardUrl}${Endpoints.dashboard}');
-      if (response.statusCode == 200) {
-        dashboardModel.value = Dashboard_model.fromJson(response.data);
-      } else {
-        throw Exception('Error : ${response.statusCode}');
-      }
-    } catch (e) {
-      CustomSnackbar.showError('Error', e.toString());
-    }
-  }
+  // void fetchDashboardDetails() async {
+  //   try {
+  //     final response =
+  //         await dioClient.dio.get('${Apis.dashboardUrl}${Endpoints.dashboard}');
+  //     if (response.statusCode == 200) {
+  //       dashboardModel.value = Dashboard_model.fromJson(response.data);
+  //     } else {
+  //       throw Exception('Error : ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     CustomSnackbar.showError('Error', e.toString());
+  //   }
+  // }
 }

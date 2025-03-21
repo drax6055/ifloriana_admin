@@ -25,15 +25,16 @@ class LoginController extends GetxController {
     };
 
     try {
-      Login loginResponse = await dioClient.postData<Login>(
+      Login_model loginResponse = await dioClient.postData<Login_model>(
         '${Apis.baseUrl}${Endpoints.login}',
         loginData,
-        (json) => Login.fromJson(json),
+        (json) => Login_model.fromJson(json),
       );
 
       await _prefs.setUser(loginResponse);
       await _prefs.saveAccessToken(loginResponse.token!);
       Get.offNamed(Routes.drawerScreen);
+      CustomSnackbar.showSuccess('sucess', 'Login Successfully');
     } catch (e) {
       CustomSnackbar.showError('Error', 'Invalid username or password');
     }

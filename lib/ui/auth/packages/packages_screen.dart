@@ -18,77 +18,28 @@ class PackagesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Select Preferable Package"),
+      appBar: CustomAppBar(
+        title: "Select Preferable Package",
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (String value) {
+              getController.selectedFilter.value = value;
+              getController.filterPackages();
+            },
+            itemBuilder: (BuildContext context) {
+              return {'All', 'Monthly', 'Quarterly', 'Half-Yearly', 'Yearly'}
+                  .map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
-          SizedBox(height: 5.h),
-          Obx(() => Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.r),
-                  color: grey.withOpacity(0.1),
-                ),
-                child: ToggleButtons(
-                  borderRadius: BorderRadius.circular(30.r),
-                  selectedBorderColor: Colors.transparent,
-                  fillColor: primaryColor,
-                  color: black,
-                  selectedColor: white,
-                  constraints: BoxConstraints(minHeight: 40.h, minWidth: 100.w),
-                  isSelected: [
-                    getController.selectedIndex.value == 0,
-                    getController.selectedIndex.value == 1
-                  ],
-                  onPressed: (int index) {
-                    getController.toggleGender(index);
-                  },
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.calendar_month,
-                              color: getController.selectedIndex.value == 0
-                                  ? white
-                                  : black),
-                          SizedBox(width: 8.w),
-                          CustomTextWidget(
-                            text: "Monthly",
-                            textStyle: CustomTextStyles.textFontBold(
-                              size: 14,
-                              color: getController.selectedIndex.value == 0
-                                  ? white
-                                  : black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.calendar_month,
-                              color: getController.selectedIndex.value == 1
-                                  ? white
-                                  : black),
-                          SizedBox(width: 8),
-                          CustomTextWidget(
-                            text: "Yearly",
-                            textStyle: CustomTextStyles.textFontBold(
-                              size: 14,
-                              color: getController.selectedIndex.value == 1
-                                  ? white
-                                  : black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )),
           SizedBox(height: 5.h),
           Expanded(
             child: Obx(() {
@@ -117,13 +68,13 @@ class PackagesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRadioCard(Package pkg) {
+  Widget _buildRadioCard(Package_model pkg) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: Obx(() {
         bool isSelected = getController.selectedPackageId.value == pkg.id;
         return GestureDetector(
-          onTap: () => getController.updateSelected(pkg.id),
+          onTap: () => getController.updateSelected(pkg.id!),
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -140,13 +91,13 @@ class PackagesScreen extends StatelessWidget {
                 children: [
                   ListTile(
                     title: CustomTextWidget(
-                      text: pkg.name,
+                      text: pkg.name.toString(),
                       textStyle: CustomTextStyles.textFontBold(size: 14.sp),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ...pkg.servicesIncluded
+                        ...pkg.servicesIncluded!
                             .map((service) => CustomTextWidget(
                                 text: "• $service",
                                 textStyle: CustomTextStyles.textFontRegular(

@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_template/route/app_route.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -10,10 +9,10 @@ import '../../../network/network_const.dart';
 import '../../../wiget/custome_snackbar.dart';
 
 class PackagesController extends GetxController {
-  var packages = <Package>[].obs;
+  var packages = <Package_model>[].obs;
   var selectedPackageId = RxnInt();
-  var selectedIndex = 0.obs; // 0 = Monthly (default), 1 = Yearly
-  var filteredPackages = <Package>[].obs;
+  var selectedFilter = 'All'.obs; // New observable for selected filter
+  var filteredPackages = <Package_model>[].obs;
   late Razorpay _razorpay;
   final Map<String, dynamic> registerData = Get.arguments;
 
@@ -33,18 +32,14 @@ class PackagesController extends GetxController {
     super.onClose();
   }
 
-  void toggleGender(int index) {
-    selectedIndex.value = index;
-    filterPackages();
-  }
-
   void fetchPackages() async {
     try {
       final response =
           await dioClient.dio.get('${Apis.baseUrl}${Endpoints.packages}');
       if (response.statusCode == 200) {
         List<dynamic> jsonData = response.data;
-        packages.value = jsonData.map((e) => Package.fromJson(e)).toList();
+        packages.value =
+            jsonData.map((e) => Package_model.fromJson(e)).toList();
         filterPackages();
       } else {
         throw Exception('Error: ${response.statusCode}');
@@ -55,14 +50,27 @@ class PackagesController extends GetxController {
   }
 
   void filterPackages() {
-    if (selectedIndex.value == 0) {
-      filteredPackages.value = packages
-          .where((pkg) => pkg.subscriptionPlan.toLowerCase() == "monthly")
-          .toList();
-    } else {
-      filteredPackages.value = packages
-          .where((pkg) => pkg.subscriptionPlan.toLowerCase() == "yearly")
-          .toList();
+    switch (selectedFilter.value) {
+      case 'Monthly':
+        filteredPackages.value =
+            packages.where((pkg) => pkg.subscriptionPlan == "monthly").toList();
+        break;
+      case 'Quarterly':
+        filteredPackages.value = packages
+            .where((pkg) => pkg.subscriptionPlan == "quarterly")
+            .toList();
+        break;
+      case 'Half-Yearly':
+        filteredPackages.value = packages
+            .where((pkg) => pkg.subscriptionPlan == "half-yearly")
+            .toList();
+        break;
+      case 'Yearly':
+        filteredPackages.value =
+            packages.where((pkg) => pkg.subscriptionPlan == "yearly").toList();
+        break;
+      default:
+        filteredPackages.value = packages;
     }
   }
 
@@ -76,7 +84,7 @@ class PackagesController extends GetxController {
     if (selectedPackage != null) {
       var options = {
         'key': dotenv.env['RAZORPAY_KEY_ID'],
-        'amount': (selectedPackage.price * 100).toInt(),
+        'amount': (selectedPackage.price! * 100).toInt(),
         'name': selectedPackage.name,
         'description': selectedPackage.description,
         'prefill': {
@@ -104,7 +112,7 @@ class PackagesController extends GetxController {
           packages.firstWhereOrNull((pkg) => pkg.id == selectedPackageId.value);
 
       if (selectedPackage != null) {
-        double amount = selectedPackage.price * 100;
+        double amount = selectedPackage.price! * 100.0;
 
         await dioClient.capturePayment(paymentId, amount);
 
@@ -141,8 +149,8 @@ class PackagesController extends GetxController {
     };
 
     try {
-      Sigm_up_model registerResponse = await dioClient.postData<Sigm_up_model>(
-        '${Apis.baseUrl}${Endpoints.signup}',
+      await dioClient.postData<Sigm_up_model>(
+        '${Apis.baseUrl}${Endpoints.register_salon}',
         register_post_details,
         (json) => Sigm_up_model.fromJson(json),
       );

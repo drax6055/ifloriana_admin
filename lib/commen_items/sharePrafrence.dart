@@ -25,7 +25,7 @@ class SharedPreferenceManager {
     await prefs.remove(_accessTokenKey);
   }
 
-  Future<void> setUser(Login? user) async {
+  Future<void> setUser(Login_model? user) async {
     return await storage?.write(key: KEY_USER, value: jsonEncode(user));
   }
 
@@ -37,14 +37,14 @@ class SharedPreferenceManager {
     Get.offAllNamed(Routes.loginScreen);  
   }
 
-  Future<Login?> getUser() async {
+  Future<Login_model?> getUser() async {
     var temp = await storage?.containsKey(key: KEY_USER);
     if (temp == true) {
       String? data = await storage?.read(key: KEY_USER) ?? "";
       if (data == "" || (data == "null")) {
         return null;
       } else {
-        return Login.fromJson(jsonDecode(data));
+        return Login_model.fromJson(jsonDecode(data));
       }
     } else {
       return null;
