@@ -43,8 +43,9 @@ dependencies:
   flutter_secure_storage: ^9.2.4
   google_fonts: ^6.2.1
   razorpay_flutter: ^1.4.0
-  shimmer: ^3.0.0
   flutter_dotenv: ^5.2.1
+  sqflite: ^2.4.1
+  path: ^1.9.0
   
 
 dev_dependencies:

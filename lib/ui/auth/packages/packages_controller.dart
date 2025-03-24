@@ -2,6 +2,7 @@ import 'package:flutter_template/route/app_route.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../../../commen_items/registerDB.dart';
 import '../../../main.dart';
 import '../../../network/model/packages_model.dart';
 import '../../../network/model/signup_model.dart';
@@ -118,6 +119,7 @@ class PackagesController extends GetxController {
 
         CustomSnackbar.showSuccess('Success', 'Payment captured successfully');
         print('Success --> Payment captured successfully: $paymentId');
+        await saveToDatabase();
         onRegisterData();
         Get.offNamed(Routes.loginScreen);
       }
@@ -136,6 +138,22 @@ class PackagesController extends GetxController {
     CustomSnackbar.showSuccess(
         'Info', 'External Wallet selected: ${response.walletName}');
     print('Info: External Wallet selected: ${response.walletName}');
+  }
+
+  Future<void> saveToDatabase() async {
+    DatabaseHelper dbHelper = DatabaseHelper();
+
+    Map<String, dynamic> register_post_details = {
+      'full_name': registerData['Owner_Name'].toString(),
+      'salon_name': registerData['Salon_Name'].toString(),
+      'phone_number': registerData['Phone'].toString(),
+      'email': registerData['Email'].toString(),
+      'address': registerData['Address'].toString(),
+      'package_id': selectedPackageId.value,
+    };
+
+    await dbHelper.insertSalonOwner(register_post_details);
+    print("Salon owner details saved locally in SQLite");
   }
 
   Future onRegisterData() async {
