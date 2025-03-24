@@ -5,6 +5,7 @@ import 'package:flutter_template/ui/drawer/drawer_screen.dart';
 import 'package:get/get.dart';
 import '../ui/auth/forgot/forgot_screen.dart';
 import '../ui/drawer/dashboard/dashboard_screen.dart';
+import '../ui/drawer/profile/profile_screen.dart';
 import '../ui/splash/splash_screen.dart';
 import 'app_route.dart';
 
@@ -38,6 +39,10 @@ class AppPages {
     GetPage(
         name: Routes.forgotScreen,
         page: () => ForgotScreen(),
+        transition: Transition.rightToLeft),
+    GetPage(
+        name: Routes.profileScreen,
+        page: () => ProfileScreen(),
         transition: Transition.rightToLeft),
   ];
 }

@@ -8,6 +8,7 @@ class Apis {
 class Endpoints {
   static const String register_salon = 'signup';
   static const String login = 'admin_login';
+  static const String udpate_salon = 'salons';
 
 
   static const String packages = 'packages';
