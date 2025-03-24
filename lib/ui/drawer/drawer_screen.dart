@@ -60,6 +60,10 @@ class DrawerScreen extends StatelessWidget {
                         size: 12.sp, color: white)),
                 currentAccountPicture: InkWell(
                   onTap: () {
+                    // Close the drawer first
+                    Navigator.pop(context); // This will close the drawer
+
+                    // Then navigate to the profile screen
                     Get.toNamed(Routes.profileScreen);
                   },
                   child: Stack(

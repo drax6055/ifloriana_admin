@@ -12,9 +12,7 @@ class DashboardScreen extends StatelessWidget {
     final DashboardController getController = Get.put(DashboardController());
 
     return SafeArea(
-      child: Scaffold(
-        appBar: CustomAppBar(title: "title"),
-      ),
+      child: Scaffold(),
     );
   }
 }
