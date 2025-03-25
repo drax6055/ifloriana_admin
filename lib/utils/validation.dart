@@ -16,13 +16,11 @@ class Validation {
     return null;
   }
 
-  // Validate password (for example, minimum 8 characters)
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your password';
     }
 
-    // Check if password length is less than 8 characters
     if (value.length < 8) {
       return 'Password must be at least 8 characters';
     }
@@ -30,7 +28,6 @@ class Validation {
     return null;
   }
 
-  // Validate phone number (e.g., US phone number format)
   static String? validatePhone(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your phone number';
@@ -57,7 +54,26 @@ class Validation {
     if (value == null || value.isEmpty) {
       return 'Please enter Address';
     }
+    if (value.length < 50) {
+      return 'Please enter a valid Address';
+    }
+    return null;
+  }
 
+  static String? validatedisscription(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter Discription';
+    }
+    if (value.length < 50) {
+      return 'Please enter a valid Discription';
+    }
+    return null;
+  }
+
+  static String? validateisBlanck(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter Details';
+    }
     return null;
   }
 }

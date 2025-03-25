@@ -15,7 +15,20 @@ class ProfileController extends GetxController {
   var contact_emailController = TextEditingController();
   var opentimeController = TextEditingController();
   var closetimeController = TextEditingController();
-  var categoryController = TextEditingController();
+  var categoryController = TextEditingController();  
+  var isSwitched = false.obs; 
+  var selectedcategory = "".obs;
+
+
+  final List<String> dropdownItems = [
+    'male',
+    'female',
+    'unisex',
+  ];
+
+  void toggleSwitch(bool value) {
+    isSwitched.value = value;
+  }
 
   Future onsalonPress() async {
     Map<String, dynamic> udpateSalonData = {
