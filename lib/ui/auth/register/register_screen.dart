@@ -99,6 +99,11 @@ class RegisterScreen extends StatelessWidget {
 
         if (_formKey.currentState?.validate() ?? false) {
           Get.toNamed(Routes.packagesScreen, arguments: register_data);
+          getController.ownerNameController.text = "";
+          getController.salonNameController.text = "";
+          getController.phoneController.text = "";
+          getController.addressController.text = "";
+          getController.emailController.text = "";
         } else {
           CustomSnackbar.showError(
               'Validation Error', 'Please fill in all fields correctly');

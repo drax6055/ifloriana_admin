@@ -12,4 +12,7 @@ class RegisterController extends GetxController {
   var ownerNameController = TextEditingController();
 
 
+
+
+
 }
