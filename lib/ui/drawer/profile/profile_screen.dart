@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_template/utils/validation.dart';
 import 'package:get/get.dart';
@@ -52,6 +53,7 @@ class ProfileScreen extends StatelessWidget {
                 InputTxtfield_SalonName(),
                 SizedBox(height: 10.h),
                 cat(),
+                SizedBox(height: 10.h),
                 Btn_register(),
                 SizedBox(height: 10.h),
               ],
@@ -124,15 +126,18 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget InputTxtfield_Phone() {
-    return CustomTextFormField(
-      controller: getController.contact_numberController,
-      labelText: 'Personal Phone',
-      keyboardType: TextInputType.phone,
-      validator: (value) =>
-          Validation.validatePhone('Please enter Phone Number'),
-    );
-  }
+Widget InputTxtfield_Phone() {
+  return CustomTextFormField(
+    controller: getController.contact_numberController,
+    labelText: 'Personal Phone',
+    keyboardType: TextInputType.phone,
+    validator: (value) => Validation.validatePhone('Please enter a valid 10-digit phone number'),
+    inputFormatters: [
+      FilteringTextInputFormatter.digitsOnly,  
+      LengthLimitingTextInputFormatter(10),   
+    ],
+  );
+}
 
   Widget InputTxtfield_add() {
     return CustomTextFormField(
@@ -152,7 +157,7 @@ class ProfileScreen extends StatelessWidget {
       maxLines: 2,
       keyboardType: TextInputType.text,
       validator: (value) =>
-          Validation.validateAddress('Please enter Salon Description'),
+          Validation.validatedisscription('Please enter Salon Description'),
     );
   }
 
@@ -201,6 +206,7 @@ class ProfileScreen extends StatelessWidget {
               getController.selectedcategory(newValue);
             }
           },
-        ));
+        )); 
+
   }
 }

@@ -12,7 +12,7 @@ import '../../../wiget/custome_snackbar.dart';
 class PackagesController extends GetxController {
   var packages = <Package_model>[].obs;
   var selectedPackageId = RxnInt();
-  var selectedFilter = 'All'.obs; // New observable for selected filter
+  var selectedFilter = 'All'.obs; 
   var filteredPackages = <Package_model>[].obs;
   late Razorpay _razorpay;
   final Map<String, dynamic> registerData = Get.arguments;
@@ -67,8 +67,9 @@ class PackagesController extends GetxController {
             .toList();
         break;
       case 'Yearly':
-        filteredPackages.value =
-            packages.where((pkg) => pkg.subscriptionPlan == "yearly").toList();
+        filteredPackages.value = packages
+            .where((pkg) => pkg.subscriptionPlan == "annually")
+            .toList();
         break;
       default:
         filteredPackages.value = packages;

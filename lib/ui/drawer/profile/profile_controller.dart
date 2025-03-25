@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../main.dart';
-import '../../../network/model/login_model.dart';
 import '../../../network/model/udpate_salon._model.dart';
 import '../../../network/network_const.dart';
 import '../../../wiget/custome_snackbar.dart';
@@ -15,15 +14,14 @@ class ProfileController extends GetxController {
   var contact_emailController = TextEditingController();
   var opentimeController = TextEditingController();
   var closetimeController = TextEditingController();
-  var categoryController = TextEditingController();  
-  var isSwitched = false.obs; 
-  var selectedcategory = "".obs;
-
+  var categoryController = TextEditingController();
+  var isSwitched = true.obs;
+  var selectedcategory = "UNISEX".obs;
 
   final List<String> dropdownItems = [
-    'male',
-    'female',
-    'unisex',
+    'MALE',
+    'FEMALE',
+    'UNISEX',
   ];
 
   void toggleSwitch(bool value) {
@@ -43,8 +41,6 @@ class ProfileController extends GetxController {
       'status': 1,
       'package_id': 6,
     };
-
-    
 
     try {
       await dioClient.postData<UpdateSalonDetails>(

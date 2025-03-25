@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../../network/model/packages_model.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/custom_text_styles.dart';
@@ -38,32 +37,39 @@ class PackagesScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 5.h),
-          Expanded(
-            child: Obx(() {
-              if (getController.filteredPackages.isEmpty) {
-                return Center(child: CircularProgressIndicator());
-              }
-              return ListView.builder(
-                itemCount: getController.filteredPackages.length,
-                itemBuilder: (context, index) {
-                  return _buildRadioCard(getController.filteredPackages[index]);
-                },
-              );
-            }),
-          ),
-          Obx(() => getController.selectedPackageId.value != null
-              ? Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ElevatedButtonExample(
-                    onPressed: () => getController.startPayment(),
-                    text: "Process to Payment",
-                  ),
-                )
-              : SizedBox()),
-        ],
+      body: RefreshIndicator(
+        color: primaryColor,
+        onRefresh: () async {
+          getController.fetchPackages();
+        },
+        child: Column(
+          children: [
+            SizedBox(height: 5.h),
+            Expanded(
+              child: Obx(() {
+                if (getController.filteredPackages.isEmpty) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                return ListView.builder(
+                  itemCount: getController.filteredPackages.length,
+                  itemBuilder: (context, index) {
+                    return _buildRadioCard(
+                        getController.filteredPackages[index]);
+                  },
+                );
+              }),
+            ),
+            Obx(() => getController.selectedPackageId.value != null
+                ? Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ElevatedButtonExample(
+                      onPressed: () => getController.startPayment(),
+                      text: "Process to Payment",
+                    ),
+                  )
+                : SizedBox()),
+          ],
+        ),
       ),
     );
   }

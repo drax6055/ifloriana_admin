@@ -4,7 +4,6 @@ import 'package:flutter_template/ui/auth/forgot/forgot_controller.dart';
 import 'package:flutter_template/utils/app_images.dart';
 import 'package:flutter_template/utils/colors.dart';
 import 'package:get/get.dart';
-import '../../../route/app_route.dart';
 import '../../../utils/custom_text_styles.dart';
 import '../../../utils/validation.dart';
 import '../../../wiget/Custome_textfield.dart';

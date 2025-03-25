@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_template/utils/app_images.dart';
 import 'package:flutter_template/utils/colors.dart';
@@ -49,6 +50,10 @@ class RegisterScreen extends StatelessWidget {
       labelText: 'Phone',
       keyboardType: TextInputType.phone,
       validator: (value) => Validation.validatePhone(value),
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(10),
+      ],
     );
   }
 

@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 import '../../../network/model/dashboard_model.dart';
-import '../../../wiget/custome_snackbar.dart';
-import '../../../network/network_const.dart';
-import 'package:flutter_template/main.dart';
+
 
 class DashboardController extends GetxController {
   var dashboardModel = Dashboard_model().obs;

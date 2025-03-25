@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/colors.dart';
@@ -16,7 +17,8 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType keyboardType;
   final FormFieldValidator<String>? validator;
   final TextStyle labelStyle = CustomTextStyles.textFontMedium(size: 14.sp);
-  final int? maxLines;  // Added maxLines parameter
+  final int? maxLines;
+  final List<TextInputFormatter>? inputFormatters;  // Add this line for inputFormatters
 
   CustomTextFormField({
     Key? key,
@@ -28,7 +30,8 @@ class CustomTextFormField extends StatelessWidget {
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.validator,
-    this.maxLines = 1,  // Default to 1 line
+    this.maxLines = 1,
+    this.inputFormatters,  // Add this to the constructor
   }) : super(key: key);
 
   @override
@@ -39,11 +42,12 @@ class CustomTextFormField extends StatelessWidget {
       keyboardType: keyboardType,
       validator: validator,
       cursorColor: primaryColor,
-      maxLines: maxLines,  // Pass maxLines to the TextFormField
+      maxLines: maxLines,
+      inputFormatters: inputFormatters,  // Apply inputFormatters here
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText,
-        labelStyle: CustomTextStyles.textFontMedium(size: 14.sp,color: grey),
+        labelStyle: CustomTextStyles.textFontMedium(size: 14.sp, color: grey),
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
         suffixIcon: suffixIcon,
         border: const OutlineInputBorder(

@@ -64,7 +64,7 @@ class Validation {
     if (value == null || value.isEmpty) {
       return 'Please enter Discription';
     }
-    if (value.length < 50) {
+    if (value.length < 10) {
       return 'Please enter a valid Discription';
     }
     return null;
